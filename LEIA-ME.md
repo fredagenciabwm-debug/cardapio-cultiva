@@ -7,8 +7,9 @@
 
 1. Suba esta pasta para o repositório do GitHub (substituindo o conteúdo antigo) e importe/atualize o projeto no Vercel.
    Não precisa de build: em *Framework Preset*, deixe **Other**.
-2. **Banco de dados**: no projeto do Vercel, vá em **Storage → Create Database → Upstash (Redis)**, escolha o plano grátis
-   e clique em **Connect** para ligar ao projeto. As variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN` são criadas sozinhas.
+2. **Banco de dados**: no projeto do Vercel, vá em **Storage → Create Database** e escolha **Redis** ou **Upstash (Redis)**
+   (os dois funcionam; o plano grátis basta) e clique em **Connect** para ligar ao projeto. As variáveis
+   (`REDIS_URL` ou `KV_REST_API_URL`/`KV_REST_API_TOKEN`) são criadas automaticamente.
 3. **Login**: em **Settings → Environment Variables**, crie:
    | Nome | Valor |
    |---|---|

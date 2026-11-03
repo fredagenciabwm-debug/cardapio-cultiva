@@ -1,0 +1,428 @@
+{
+ "secoes": [
+  {
+   "id": "chopes",
+   "nome": "Chopes",
+   "blocos": [
+    {
+     "tipo": "itens",
+     "titulo": "",
+     "itens": [
+      {
+       "nome": "TAP #1 - NASCENTE",
+       "desc": "ESTILO KÖLSCH, CHOPP ARTESANAL LAGER DE FRUTADO ESPECIAL, AMARGOR EQUILIBRADO E SUAVE QUE PROPORCIONA REFRESCÂNCIA AO PALADAR!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "Pint 350 ml",
+         "valor": "11,90"
+        },
+        {
+         "rotulo": "Caneca 500 ml",
+         "valor": "14,90"
+        }
+       ]
+      },
+      {
+       "nome": "TAP #2 - COLMEIA",
+       "desc": "ESTILO EXTRA SPECIAL BITTER, CHOPP ARTESANAL ALE, LUPULADA COM ADIÇÃO DE MEL SILVESTRE 100% DA EMPRESA MEL BROTAS, UMA VERDADEIRA EXPERIÊNCIA E CARACTERÍSTICA DA ÁREA RURAL!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "Pint 350 ml",
+         "valor": "14,90"
+        },
+        {
+         "rotulo": "Caneca 500 ml",
+         "valor": "17,90"
+        }
+       ]
+      },
+      {
+       "nome": "TAP #3 - RIACHO",
+       "desc": "ESTILO HOP LAGER, CHOPP ARTESANAL LEVE E REFRESCANTE, NA MEDIDA. BASE DA NASCENTE FINALIZADA COM DRY HOPPYNG QUE PROPORCIONA AROMA E SABOR CÍTRICO!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "Pint 350 ml",
+         "valor": "13,90"
+        },
+        {
+         "rotulo": "Caneca 500 ml",
+         "valor": "16,90"
+        }
+       ]
+      },
+      {
+       "nome": "TAP #4 - PAIOL",
+       "desc": "ESTILO WEIZENBOCK, CHOPP ARTESANAL DE CORPO ELEVADO, NOTAS DE TORREFAÇÃO E UM LEVE AROMA DE CRAVO E BANANA, ESCURA DE TRIGO DE ALTA FERMENTAÇÃO!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "Pint 350 ml",
+         "valor": "14,90"
+        },
+        {
+         "rotulo": "Caneca 500 ml",
+         "valor": "17,90"
+        }
+       ]
+      },
+      {
+       "nome": "TAP #5 - LAVOURA",
+       "desc": "ESTILO ROBUST PORTER, O CHOPP ARTESANAL DOS PORTUÁRIOS DA ANTIGA INGLATERRA DE CORPO ELEVADO, NOTAS DE CAFÉ, CHOCOLATE MEIO AMARGO E CARAMELO!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "Pint 350 ml",
+         "valor": "14,90"
+        },
+        {
+         "rotulo": "Caneca 500 ml",
+         "valor": "17,90"
+        }
+       ]
+      },
+      {
+       "nome": "TAP #6 - ROBUSTA",
+       "desc": "ESTILO AMERICAN IPA, O CHOPP ARTESANAL DOS IPEIROS DE PLANTÃO! LUPULAGEM E AMARGOR EQUILIBRADO COM UM CITRÍCIO ESPECIAL E UMA DOSE DE MEL DE ABELHAS SILVESTRE DA PROPRIEDADE!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "Pint 350 ml",
+         "valor": "16,90"
+        },
+        {
+         "rotulo": "Caneca 500 ml",
+         "valor": "21,90"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "nota": "",
+   "aviso": "AVISO: COBRAMOS COUVERT ARTÍSTICO EM DIAS COM SOM AO VIVO"
+  },
+  {
+   "id": "porcoes",
+   "nome": "Porções",
+   "blocos": [
+    {
+     "tipo": "itens",
+     "titulo": "",
+     "itens": [
+      {
+       "nome": "Requeijão de corte com mel",
+       "desc": "Um delicioso e tradicional corte de um requeijão fresco e artesanal, de um parceiro com procedência e qualidade garantidas. Servido em uma tábua de madeira com uma dose generosa de mel. A experiência, tanto visual quanto gastronômica, é incrível!",
+       "opc": "(Opções:linguiça e azeitona/damasco/damasco com nozes/pimenta biquinho/lombo)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "39,00"
+        }
+       ]
+      },
+      {
+       "nome": "Nozinho de queijo com mel",
+       "desc": "Para beliscar entre um chope e outro, nosso nozinho é a opção perfeita para quem curte um petisco mais leve e nem tão apimentado. O mel, é claro, nunca falta!",
+       "opc": "(Opções: branco ou temperado com leve dose de pimenta)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "35,00"
+        }
+       ]
+      },
+      {
+       "nome": "Salame",
+       "desc": "Uma excelente combinação para os mais tradicionais: nosso salame artesanal combina com qualquer estilo de chope e época do ano.",
+       "opc": "(Opções: tradicional/queijo e azeitona)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "35,00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "tipo": "lista",
+     "titulo": "PORÇÕES TRADICIONAIS / CALDOS",
+     "itens": [
+      {
+       "nome": "Batata frita",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "30,00"
+        }
+       ]
+      },
+      {
+       "nome": "Mandioca frita",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "30,00"
+        }
+       ]
+      },
+      {
+       "nome": "Kibe (12 unidades)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "30,00"
+        }
+       ]
+      },
+      {
+       "nome": "Coxinha de frango (12 unidades)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "35,00"
+        }
+       ]
+      },
+      {
+       "nome": "Batata frita com queijo e bacon (400 gramas)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "35,00"
+        }
+       ]
+      },
+      {
+       "nome": "Torresmo frito (400 gramas)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "49,00"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "nota": "",
+   "aviso": ""
+  },
+  {
+   "id": "pit",
+   "nome": "Pit Smoker",
+   "blocos": [
+    {
+     "tipo": "itens",
+     "titulo": "",
+     "itens": [
+      {
+       "nome": "Trash taco caipira",
+       "desc": "Taco artesanal recheado com fraldinha defumada na lenha desfiando de tão macia e linguiça artesanal apimentada na brasa. A potência da carne e da picância é equilibrada pela cremosidade marcante do queijo derretido, finalizado com um fio de mel silvestre e o exclusivo tempero do mestre Brasa e Tacho. Uma explosão rústica entre o doce, o salgado, a fumaça e a pimenta.",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "32,00"
+        }
+       ]
+      },
+      {
+       "nome": "Hambúrguer artesanal",
+       "desc": "Carne defumada, queijo, bacon e claro, mel. Feito em nossa smoker, que dá um toque diferente no seu burguer.",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "38,00"
+        }
+       ]
+      },
+      {
+       "nome": "Fraldinha defumada com queijo gratinado",
+       "desc": "O prato que nos representou no Broteco 2026 agora integra nosso cardápio semanal aqui no celeiro. São 400 gramas de fraldinha defumada no processo low & slow finalizada com queijo gratinado. A perfeita combinação com nossos chopps artesanais.",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "72,90"
+        }
+       ]
+      },
+      {
+       "nome": "Brisket Defumado",
+       "desc": "Peito bovino cuidadosamente preparado e defumado por várias horas, em baixa temperatura, até atingir o ponto perfeito de maciez e suculência.\nA fumaça da lenha penetra lentamente na carne, formando uma casquinha aromática e saborosa por fora, enquanto o interior permanece macio, suculento e cheio de sabor!",
+       "opc": "",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "75,90"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "nota": "Uma parceria saborosa entre a Cultiva, Brasa e Tacho e a Mad Max. Expandimos nosso cardápio com opções de lanches e mais tábuas de carnes feitas em nosso smoker comandado por um churrasqueiro profissional. Esta combinação garante sabor único e delicioso para em nossos burguers, totalmente diferente do que normalmente encontramos.\nNão é um hambúrguer artesanal, é nosso hambúrguer Pit Smoker.",
+   "aviso": ""
+  },
+  {
+   "id": "bebidas",
+   "nome": "Bebidas",
+   "blocos": [
+    {
+     "tipo": "lista",
+     "titulo": "BEBIDAS SEM ÁLCOOL E DRINKS",
+     "itens": [
+      {
+       "nome": "Água natural (garrafa de 500 ml)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "5,00"
+        }
+       ]
+      },
+      {
+       "nome": "Água com gás (garrafa de 500 ml)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "6,00"
+        }
+       ]
+      },
+      {
+       "nome": "Coca Cola (lata de 350 ml)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "8,00"
+        }
+       ]
+      },
+      {
+       "nome": "Coca Cola zero (lata de 350 ml)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "8,00"
+        }
+       ]
+      },
+      {
+       "nome": "H2o limão",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "9,90"
+        }
+       ]
+      },
+      {
+       "nome": "Guaraná Antarctica (lata 350 ml)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "8,00"
+        }
+       ]
+      },
+      {
+       "nome": "Suco de laranja natural (350 ml)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "15,00"
+        }
+       ]
+      },
+      {
+       "nome": "Suco Del Valle (uva e maracujá)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "10,00"
+        }
+       ]
+      },
+      {
+       "nome": "Caipirinha de vodka (Smirnoff) limão e maracujá",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "30,00"
+        }
+       ]
+      },
+      {
+       "nome": "Caipirinha de vodka (Smirnoff) morango",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "32,00"
+        }
+       ]
+      },
+      {
+       "nome": "Caipirinha de pinga com mel e limão",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "35,00"
+        }
+       ]
+      },
+      {
+       "nome": "Dose de pinga com mel",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "5,50"
+        }
+       ]
+      },
+      {
+       "nome": "Dose de cachaça (Empório São Pedro)",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "5,50"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "tipo": "lista",
+     "titulo": "Adicionais",
+     "itens": [
+      {
+       "nome": "Pão",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "6,00"
+        }
+       ]
+      },
+      {
+       "nome": "Gelo e limão",
+       "precos": [
+        {
+         "rotulo": "",
+         "valor": "3,50"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "nota": "",
+   "aviso": ""
+  }
+ ]
+}

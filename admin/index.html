@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel do Cardápio · Cultiva</title>
+<meta name="theme-color" content="#472536">
+<style>
+@font-face{font-family:"MilhoCozido";src:url(/fonts/milho-cozido.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Montserrat";font-weight:500;src:url(/fonts/montserrat-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Montserrat";font-weight:600;src:url(/fonts/montserrat-latin-600-normal.woff2) format("woff2")}
+:root{
+  --roxo:#472536;--roxo-2:#5b3246;--tinta:#2e1a24;--suave:#7a6470;--papel:#F6F0E3;--fundo:#efe8d8;
+  --mel:#F8D198;--laranja:#EFA73F;--linha:#e2d8c4;--branco:#fffdf8;--erro:#b3261e;--ok:#2f7d4f;
+  --display:"MilhoCozido","Montserrat",system-ui,sans-serif;--texto:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--tinta);font:500 15px/1.45 var(--texto)}
+button,input,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.marca{font-family:var(--display);letter-spacing:.03em}
+
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:var(--roxo)}
+.cartao-login{width:100%;max-width:380px;background:var(--papel);padding:32px 28px;box-shadow:0 18px 50px rgb(0 0 0 / .35)}
+.cartao-login h1{margin:0 0 4px;font:normal 30px/1.1 var(--display);color:var(--roxo)}
+.cartao-login p{margin:0 0 22px;color:var(--suave);font-size:14px}
+label{display:block;font-size:13px;font-weight:600;color:var(--suave);margin:0 0 5px}
+.campo{margin-bottom:14px}
+input[type=text],input[type=password],textarea{width:100%;background:var(--branco);border:1.5px solid var(--linha);border-radius:6px;padding:9px 11px;outline:none;transition:border-color .15s}
+input:focus,textarea:focus{border-color:var(--laranja)}
+textarea{resize:vertical;min-height:62px;line-height:1.4}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1.5px solid transparent;border-radius:6px;padding:9px 16px;font-weight:600;cursor:pointer;background:var(--branco);border-color:var(--linha);text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--laranja)}
+.btn:focus-visible{outline:2px solid var(--laranja);outline-offset:2px}
+.btn-primario{background:var(--roxo);color:var(--papel);border-color:var(--roxo)}
+.btn-primario:hover{background:var(--roxo-2);border-color:var(--roxo-2)}
+.btn-mel{background:var(--mel);border-color:var(--mel);color:var(--roxo)}
+.btn-mel:hover{border-color:var(--laranja)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn-largo{width:100%;padding:11px}
+.erro{color:var(--erro);font-size:14px;min-height:20px;margin:8px 0 0}
+
+/* painel */
+.topo{background:var(--roxo);color:var(--papel);position:sticky;top:0;z-index:20}
+.topo-in{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topo h1{margin:0;font:normal 24px/1 var(--display);flex:1;min-width:180px}
+.topo h1 small{display:block;font:500 12px/1.4 var(--texto);color:#d9c6cf;margin-top:4px;letter-spacing:0}
+.topo .btn{background:transparent;color:var(--papel);border-color:rgb(246 240 227 / .3)}
+.topo .btn:hover{border-color:var(--laranja)}
+.topo .btn-mel{background:var(--mel);color:var(--roxo);border-color:var(--mel)}
+.abas{max-width:980px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.abas button{background:none;border:0;color:#d9c6cf;padding:10px 14px 11px;cursor:pointer;font:normal 17px/1 var(--display);letter-spacing:.04em;border-bottom:3px solid transparent;white-space:nowrap}
+.abas button[aria-selected=true]{color:var(--papel);border-bottom-color:var(--laranja)}
+.abas button .qtd{font:600 11px/1 var(--texto);background:rgb(246 240 227 / .16);border-radius:10px;padding:2px 7px;margin-left:6px;vertical-align:2px}
+
+main{max-width:980px;margin:0 auto;padding:20px 16px 120px}
+.secao-cab{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.secao-cab h2{margin:0;font:normal 30px/1 var(--display);color:var(--roxo);flex:1}
+.check{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--suave);cursor:pointer;user-select:none}
+.check input{width:17px;height:17px;accent-color:var(--roxo)}
+.dica{color:var(--suave);font-size:13px;margin:0 0 18px}
+
+.bloco{margin-top:22px}
+.bloco-cab{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bloco-cab h3{margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--suave);font-weight:600;white-space:nowrap}
+.bloco-cab input{max-width:420px}
+
+.item{background:var(--branco);border:1.5px solid var(--linha);border-radius:8px;padding:14px;margin-bottom:10px;transition:border-color .2s, box-shadow .2s}
+.item.novo{border-color:var(--laranja);box-shadow:0 0 0 3px rgb(239 167 63 / .2)}
+.item.oculto{opacity:.6;background:repeating-linear-gradient(-45deg,var(--branco) 0 10px,#f7f1e4 10px 20px)}
+.item-linha{display:flex;gap:10px;align-items:flex-end}
+.item-linha .campo{flex:1;margin:0}
+.item .grade{display:grid;gap:12px;margin-top:12px}
+.acoes{display:flex;gap:4px;flex-shrink:0}
+.ico{width:36px;height:38px;display:inline-grid;place-items:center;border:1.5px solid var(--linha);border-radius:6px;background:var(--branco);cursor:pointer;color:var(--suave)}
+.ico:hover{border-color:var(--laranja);color:var(--tinta)}
+.ico.perigo:hover{border-color:var(--erro);color:var(--erro)}
+.ico[disabled]{opacity:.35;cursor:default;border-color:var(--linha);color:var(--suave)}
+.ico[aria-pressed=true]{background:var(--mel);border-color:var(--mel);color:var(--roxo)}
+.ico svg{width:18px;height:18px}
+.precos{display:flex;flex-direction:column;gap:8px}
+.preco-linha{display:flex;gap:8px;align-items:center}
+.preco-linha .rotulo{flex:1;max-width:240px}
+.valor{position:relative;width:130px;flex-shrink:0}
+.valor span{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--suave);font-weight:600;pointer-events:none}
+.valor input{padding-left:36px;font-weight:600;font-variant-numeric:tabular-nums;background:#fff8ea}
+.link{background:none;border:0;padding:4px 0;color:var(--roxo);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:14px;justify-self:start}
+.item.lista{padding:10px 12px}
+.item.lista .item-linha{align-items:center}
+.adicionar{width:100%;border:1.5px dashed #cdbfa5;background:transparent;border-radius:8px;padding:12px;font-weight:600;color:var(--roxo);cursor:pointer}
+.adicionar:hover{border-color:var(--laranja);background:var(--branco)}
+.extras{margin-top:28px;padding-top:20px;border-top:1.5px solid var(--linha);display:grid;gap:14px}
+
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--branco);border-top:1.5px solid var(--linha);box-shadow:0 -6px 20px rgb(0 0 0 / .06);transform:translateY(110%);transition:transform .25s}
+.barra.ativa{transform:none}
+.barra-in{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.barra-in p{margin:0;flex:1;font-weight:600;min-width:160px}
+.barra-in p::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--laranja);margin-right:8px;vertical-align:1px}
+
+.aviso-topo{background:#fff3d6;border:1.5px solid var(--mel);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;z-index:50;background:var(--tinta);color:var(--papel);padding:12px 18px;border-radius:8px;font-weight:600;box-shadow:0 10px 30px rgb(0 0 0 / .25);transition:all .25s;max-width:calc(100vw - 32px);pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast.erro{background:var(--erro)}
+.modal{position:fixed;inset:0;z-index:60;background:rgb(46 26 36 / .55);display:grid;place-items:center;padding:16px}
+.modal-in{background:var(--papel);padding:26px 24px;max-width:420px;width:100%;border-radius:8px;text-align:center}
+.modal-in h3{margin:0 0 6px;font:normal 24px/1.1 var(--display);color:var(--roxo)}
+.modal-in p{margin:0 0 14px;color:var(--suave);font-size:14px}
+.progresso{height:8px;background:var(--linha);border-radius:4px;overflow:hidden}
+.progresso div{height:100%;width:0;background:var(--laranja);transition:width .3s}
+#quadro-pdf{position:fixed;left:-20000px;top:0;width:860px;height:1200px;border:0;pointer-events:none}
+
+@media (max-width:640px){
+  .topo{position:static}
+  .topo h1{font-size:20px;flex-basis:100%}
+  .topo-in .btn{flex:1;padding:9px 10px}
+  .barra-in p{flex-basis:100%}
+  .barra-in .btn{flex:1}
+  .topo .rotulo-btn{display:none}
+  .item-linha{flex-wrap:wrap}
+  .item:not(.lista) .item-linha .campo{flex-basis:100%}
+  .item:not(.lista) .acoes{margin-left:auto}
+  .item.lista .item-linha .campo{flex-basis:100%}
+  .item.lista .acoes{margin-left:auto}
+  .preco-linha{flex-wrap:wrap}
+  .preco-linha .rotulo{max-width:none;flex-basis:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login" hidden>
+  <form class="cartao-login" id="form-login">
+    <h1>Cultiva</h1>
+    <p>Painel do cardápio. Entre para editar pratos e preços.</p>
+    <div class="campo"><label for="usuario">Usuário</label><input type="text" id="usuario" autocomplete="username" required autocapitalize="none"></div>
+    <div class="campo"><label for="senha">Senha</label><input type="password" id="senha" autocomplete="current-password" required></div>
+    <button class="btn btn-primario btn-largo" type="submit" id="btn-entrar">Entrar</button>
+    <p class="erro" id="erro-login" role="alert"></p>
+  </form>
+</section>
+
+<!-- PAINEL -->
+<div id="painel" hidden>
+  <header class="topo">
+    <div class="topo-in">
+      <h1>Cardápio Cultiva <small id="info-atualizacao">&nbsp;</small></h1>
+      <a class="btn" href="/" target="_blank" rel="noopener" title="Abrir o cardápio público">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+        <span class="rotulo-btn">Ver cardápio</span></a>
+      <button class="btn btn-mel" id="btn-pdf" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        Baixar PDF</button>
+      <button class="btn" id="btn-sair" type="button"><span>Sair</span></button>
+    </div>
+    <nav class="abas" role="tablist" id="abas" aria-label="Seções do cardápio"></nav>
+  </header>
+
+  <main>
+    <div class="aviso-topo" id="aviso-banco" hidden></div>
+    <div id="editor"></div>
+  </main>
+
+  <div class="barra" id="barra">
+    <div class="barra-in">
+      <p id="barra-texto">Alterações não salvas</p>
+      <button class="btn" id="btn-descartar" type="button">Descartar</button>
+      <button class="btn btn-primario" id="btn-salvar" type="button">Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-pdf" hidden>
+  <div class="modal-in">
+    <h3>Gerando PDF…</h3>
+    <p id="pdf-texto">Preparando as folhas do cardápio</p>
+    <div class="progresso"><div id="pdf-barra"></div></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const NOMES_BLOCO = { itens: 'Pratos', lista: 'Lista com preços' };
+  const ICONES = {
+    cima: '<path d="M12 19V5M6 11l6-6 6 6"/>',
+    baixo: '<path d="M12 5v14M6 13l6 6 6-6"/>',
+    olho: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    olhoFechado: '<path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+    lixo: '<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  };
+  const svg = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[n]}</svg>`;
+
+  let salvo = null;      // última versão salva (texto JSON)
+  let dados = null;      // versão em edição
+  let abaAtual = 'chopes';
+  let novoFoco = null;   // item recém-adicionado, para focar
+
+  // ---------- utilidades ----------
+  function toast(msg, erro = false) {
+    const t = $('#toast');
+    t.textContent = msg; t.classList.toggle('erro', erro); t.classList.add('on');
+    clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), erro ? 6000 : 3200);
+  }
+  async function api(url, opcoes = {}) {
+    const r = await fetch(url, { credentials: 'same-origin', cache: 'no-store', ...opcoes,
+      headers: { 'Content-Type': 'application/json', ...(opcoes.headers || {}) } });
+    let corpo = {}; try { corpo = await r.json(); } catch {}
+    if (!r.ok) { const e = new Error(corpo.erro || `Erro ${r.status}`); e.status = r.status; throw e; }
+    return corpo;
+  }
+  const el = (tag, attrs = {}, ...filhos) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v == null || v === false) continue;
+      if (k === 'class') n.className = v;
+      else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+      else if (k === 'html') n.innerHTML = v;
+      else if (k === 'value') n.value = v;
+      else n.setAttribute(k, v === true ? '' : v);
+    }
+    filhos.flat().forEach(f => f != null && n.append(f));
+    return n;
+  };
+  // "12" → "12,00"; "12.5" → "12,50"; texto livre (ex.: "consulte") fica como está
+  function normalizarPreco(v) {
+    const s = String(v || '').replace(/^\s*r\$\s*/i, '').trim();
+    if (!s) return '';
+    const m = s.match(/^(\d{1,3}(?:\.\d{3})*|\d+)(?:[,.](\d{1,2}))?$/);
+    if (!m) return s;
+    const inteiro = m[1].replace(/\./g, '');
+    return `${inteiro},${(m[2] || '').padEnd(2, '0')}`;
+  }
+  const formatarData = iso => {
+    if (!iso) return 'Ainda sem alterações salvas pelo painel';
+    const d = new Date(iso);
+    return 'Salvo em ' + d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  };
+  const sujo = () => salvo !== null && JSON.stringify(limpar(dados)) !== salvo;
+  // remove campos de controle antes de comparar/salvar
+  const limpar = d => ({ secoes: d.secoes });
+
+  function marcarAlteracao() {
+    $('#barra').classList.toggle('ativa', sujo());
+    atualizarContagens();
+  }
+
+  // ---------- login ----------
+  async function iniciar() {
+    let s;
+    try { s = await api('/api/sessao'); } catch { s = {}; }
+    if (s.usuario) return abrirPainel(s);
+    $('#login').hidden = false; $('#painel').hidden = true;
+    if (s.loginConfigurado === false) {
+      $('#erro-login').textContent = 'Login ainda não configurado: defina ADMIN_USUARIO e ADMIN_SENHA nas variáveis de ambiente do Vercel.';
+    }
+    $('#usuario').focus();
+  }
+  $('#form-login').addEventListener('submit', async e => {
+    e.preventDefault();
+    const b = $('#btn-entrar'); b.disabled = true; b.textContent = 'Entrando…'; $('#erro-login').textContent = '';
+    try {
+      await api('/api/login', { method: 'POST', body: JSON.stringify({ usuario: $('#usuario').value, senha: $('#senha').value }) });
+      $('#senha').value = '';
+      abrirPainel(await api('/api/sessao'));
+    } catch (err) {
+      $('#erro-login').textContent = err.message;
+    } finally { b.disabled = false; b.textContent = 'Entrar'; }
+  });
+  $('#btn-sair').addEventListener('click', async () => {
+    if (sujo() && !confirm('Há alterações não salvas. Sair mesmo assim?')) return;
+    await api('/api/logout', { method: 'POST' }).catch(() => {});
+    salvo = null; location.reload();
+  });
+
+  async function abrirPainel(sessao) {
+    $('#login').hidden = true; $('#painel').hidden = false;
+    if (sessao && sessao.bancoConfigurado === false) {
+      const a = $('#aviso-banco'); a.hidden = false;
+      a.innerHTML = '<b>Banco de dados não conectado.</b> Dá para editar e baixar o PDF, mas para <b>salvar</b> é preciso conectar o Upstash Redis ao projeto no Vercel (Storage → Upstash Redis → Connect).';
+    }
+    try {
+      const d = await api('/api/cardapio?t=' + Date.now());
+      dados = { secoes: d.secoes };
+      salvo = JSON.stringify(limpar(dados));
+      $('#info-atualizacao').textContent = formatarData(d.atualizadoEm);
+      const hash = location.hash.slice(1);
+      if (dados.secoes.some(s => s.id === hash)) abaAtual = hash;
+      desenharAbas(); desenharSecao();
+    } catch (e) {
+      $('#editor').innerHTML = '';
+      $('#editor').append(el('p', { class: 'aviso-topo' }, 'Não foi possível carregar o cardápio: ' + e.message));
+    }
+  }
+
+  // ---------- abas ----------
+  const contar = s => s.blocos.reduce((n, b) => n + b.itens.length, 0);
+  function desenharAbas() {
+    const nav = $('#abas'); nav.replaceChildren();
+    dados.secoes.forEach(s => nav.append(el('button', {
+      role: 'tab', type: 'button', 'aria-selected': String(s.id === abaAtual), 'data-id': s.id,
+      onclick: () => { abaAtual = s.id; history.replaceState(null, '', '#' + s.id); desenharAbas(); desenharSecao(); scrollTo({ top: 0 }); },
+    }, s.nome, el('span', { class: 'qtd' }, String(contar(s))))));
+  }
+  function atualizarContagens() {
+    document.querySelectorAll('#abas button').forEach(b => {
+      const s = dados.secoes.find(x => x.id === b.dataset.id);
+      if (s) b.querySelector('.qtd').textContent = contar(s);
+    });
+  }
+
+  // ---------- editor ----------
+  function campo(rotulo, valor, aoMudar, { multilinha = false, placeholder = '', id } = {}) {
+    const i = multilinha
+      ? el('textarea', { rows: 3, placeholder, id, value: valor || '' })
+      : el('input', { type: 'text', placeholder, id, value: valor || '' });
+    i.addEventListener('input', () => { aoMudar(i.value); marcarAlteracao(); if (multilinha) ajustarAltura(i); });
+    if (multilinha) requestAnimationFrame(() => ajustarAltura(i));
+    return el('div', { class: 'campo' }, rotulo ? el('label', { for: id }, rotulo) : null, i);
+  }
+  const ajustarAltura = t => { t.style.height = 'auto'; t.style.height = Math.max(62, t.scrollHeight + 3) + 'px'; };
+  let seq = 0; const uid = p => `${p}-${++seq}`;
+
+  function campoPreco(p, aoMudar) {
+    const i = el('input', { type: 'text', inputmode: 'decimal', placeholder: '0,00', value: p.valor || '', 'aria-label': 'Preço em reais' });
+    i.addEventListener('input', () => { p.valor = i.value; marcarAlteracao(); });
+    i.addEventListener('blur', () => { const n = normalizarPreco(i.value); if (n !== i.value) { i.value = n; p.valor = n; marcarAlteracao(); } });
+    return el('div', { class: 'valor' }, el('span', {}, 'R$'), i);
+  }
+
+  function botoesItem(lista, idx) {
+    const it = lista[idx];
+    const mover = d => { const [x] = lista.splice(idx, 1); lista.splice(idx + d, 0, x); marcarAlteracao(); desenharSecao(); };
+    return el('div', { class: 'acoes' },
+      el('button', { class: 'ico', type: 'button', title: 'Subir', 'aria-label': 'Subir item', disabled: idx === 0, html: svg('cima'), onclick: () => mover(-1) }),
+      el('button', { class: 'ico', type: 'button', title: 'Descer', 'aria-label': 'Descer item', disabled: idx === lista.length - 1, html: svg('baixo'), onclick: () => mover(1) }),
+      el('button', { class: 'ico', type: 'button', 'aria-pressed': String(!!it.oculto),
+        title: it.oculto ? 'Oculto no cardápio — clique para mostrar' : 'Ocultar do cardápio (ex.: em falta)',
+        'aria-label': it.oculto ? 'Mostrar item' : 'Ocultar item', html: svg(it.oculto ? 'olhoFechado' : 'olho'),
+        onclick: () => { if (it.oculto) delete it.oculto; else it.oculto = true; marcarAlteracao(); desenharSecao(); } }),
+      el('button', { class: 'ico perigo', type: 'button', title: 'Excluir', 'aria-label': 'Excluir item', html: svg('lixo'),
+        onclick: () => { if (confirm(`Excluir "${it.nome || 'item sem nome'}"?`)) { lista.splice(idx, 1); marcarAlteracao(); desenharSecao(); } } }),
+    );
+  }
+
+  function cartaoItem(bloco, idx) {
+    const it = bloco.itens[idx];
+    const idNome = uid('nome');
+    if (bloco.tipo === 'lista') {
+      if (!it.precos?.length) it.precos = [{ rotulo: '', valor: '' }];
+      return el('div', { class: 'item lista' + (it.oculto ? ' oculto' : '') + (novoFoco === it ? ' novo' : '') },
+        el('div', { class: 'item-linha' },
+          campo('', it.nome, v => { it.nome = v; }, { placeholder: 'Nome do item', id: idNome }),
+          campoPreco(it.precos[0]), botoesItem(bloco.itens, idx)));
+    }
+    it.precos ||= [];
+    if (!it.precos.length) it.precos.push({ rotulo: '', valor: '' });
+    const precos = el('div', { class: 'precos' });
+    const variosTamanhos = it.precos.length > 1 || it.precos.some(p => p.rotulo);
+    it.precos.forEach((p, pi) => {
+      precos.append(el('div', { class: 'preco-linha' },
+        variosTamanhos ? el('input', { type: 'text', class: 'rotulo', placeholder: 'Tamanho (ex.: Pint 350 ml)', value: p.rotulo || '', 'aria-label': 'Tamanho',
+          oninput: e => { p.rotulo = e.target.value; marcarAlteracao(); } }) : null,
+        campoPreco(p),
+        it.precos.length > 1 ? el('button', { class: 'ico perigo', type: 'button', title: 'Remover este preço', 'aria-label': 'Remover preço', html: svg('x'),
+          onclick: () => { it.precos.splice(pi, 1); marcarAlteracao(); desenharSecao(); } }) : null));
+    });
+    return el('div', { class: 'item' + (it.oculto ? ' oculto' : '') + (novoFoco === it ? ' novo' : '') },
+      el('div', { class: 'item-linha' },
+        campo('Nome do prato', it.nome, v => { it.nome = v; }, { id: idNome }),
+        botoesItem(bloco.itens, idx)),
+      el('div', { class: 'grade' },
+        campo('Descrição', it.desc, v => { it.desc = v; }, { multilinha: true, id: uid('desc') }),
+        (abaAtual !== 'chopes' || it.opc) ? campo('Opções (opcional)', it.opc, v => { it.opc = v; }, { placeholder: 'Ex.: (Opções: tradicional/queijo e azeitona)', id: uid('opc') }) : null,
+        el('div', {}, el('label', {}, variosTamanhos ? 'Tamanhos e preços' : 'Preço'), precos),
+        el('button', { class: 'link', type: 'button', onclick: () => {
+          if (!variosTamanhos && it.precos.length === 1) it.precos[0].rotulo = it.precos[0].rotulo || 'Tamanho 1';
+          it.precos.push({ rotulo: '', valor: '' }); marcarAlteracao(); desenharSecao();
+        } }, variosTamanhos ? '+ Adicionar tamanho' : '+ Preços por tamanho (ex.: pint / caneca)')));
+  }
+
+  function desenharSecao() {
+    const sec = dados.secoes.find(s => s.id === abaAtual);
+    const ed = $('#editor'); ed.replaceChildren();
+    ed.append(el('div', { class: 'secao-cab' },
+      el('h2', {}, sec.nome),
+      el('label', { class: 'check' },
+        el('input', { type: 'checkbox', checked: sec.oculta ? true : null, onchange: e => { sec.oculta = e.target.checked || undefined; if (!sec.oculta) delete sec.oculta; marcarAlteracao(); } }),
+        'Ocultar esta seção')));
+    ed.append(el('p', { class: 'dica' }, 'Edite os textos e clique em “Salvar alterações”. O olho esconde um item temporariamente (ex.: em falta) sem apagá-lo.'));
+
+    sec.blocos.forEach(b => {
+      const bloco = el('div', { class: 'bloco' });
+      const cab = el('div', { class: 'bloco-cab' }, el('h3', {}, NOMES_BLOCO[b.tipo]));
+      if (b.tipo === 'lista' || b.titulo) {
+        const t = el('input', { type: 'text', value: b.titulo || '', placeholder: 'Título da lista', 'aria-label': 'Título da lista' });
+        t.addEventListener('input', () => { b.titulo = t.value; marcarAlteracao(); });
+        cab.append(t);
+      }
+      bloco.append(cab);
+      b.itens.forEach((_, i) => bloco.append(cartaoItem(b, i)));
+      bloco.append(el('button', { class: 'adicionar', type: 'button', onclick: () => {
+        const modelo = b.itens.find(x => x.precos?.some(p => p.rotulo));
+        const novo = b.tipo === 'lista' ? { nome: '', precos: [{ rotulo: '', valor: '' }] }
+          : { nome: '', desc: '', opc: '', precos: modelo ? modelo.precos.map(p => ({ rotulo: p.rotulo, valor: '' })) : [{ rotulo: '', valor: '' }] };
+        b.itens.push(novo); novoFoco = novo; marcarAlteracao(); desenharSecao();
+      } }, b.tipo === 'lista' ? '+ Adicionar item à lista' : '+ Adicionar prato'));
+      ed.append(bloco);
+    });
+
+    const extras = el('div', { class: 'extras' });
+    if (sec.id === 'chopes' || sec.aviso) {
+      extras.append(campo('Aviso no rodapé da folha', sec.aviso, v => { sec.aviso = v; }, { id: uid('aviso'), placeholder: 'Ex.: AVISO: COBRAMOS COUVERT ARTÍSTICO EM DIAS COM SOM AO VIVO' }));
+    }
+    extras.append(campo('Observação no fim da seção (em itálico, opcional)', sec.nota, v => { sec.nota = v; }, { multilinha: true, id: uid('nota') }));
+    ed.append(extras);
+
+    if (novoFoco) {
+      const card = ed.querySelector('.item.novo');
+      card?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      card?.querySelector('input')?.focus({ preventScroll: true });
+      novoFoco = null;
+    }
+  }
+
+  // ---------- salvar ----------
+  $('#btn-salvar').addEventListener('click', salvar);
+  async function salvar() {
+    const b = $('#btn-salvar'); b.disabled = true; b.textContent = 'Salvando…';
+    try {
+      const r = await api('/api/cardapio', { method: 'PUT', body: JSON.stringify(limpar(dados)) });
+      dados = { secoes: r.secoes };
+      salvo = JSON.stringify(limpar(dados));
+      $('#info-atualizacao').textContent = formatarData(r.atualizadoEm);
+      desenharAbas(); desenharSecao(); marcarAlteracao();
+      toast('Salvo! O cardápio on-line já está atualizado.');
+    } catch (e) {
+      if (e.status === 401) { toast('Sua sessão expirou. Entre de novo — suas alterações continuam aqui.', true); mostrarLoginSobreposto(); }
+      else toast(e.message, true);
+    } finally { b.disabled = false; b.textContent = 'Salvar alterações'; }
+  }
+  // sessão expirada: reabre o login sem perder o que foi editado
+  function mostrarLoginSobreposto() {
+    $('#login').hidden = false; $('#login').style.position = 'fixed'; $('#login').style.inset = '0'; $('#login').style.zIndex = '70';
+    const f = $('#form-login');
+    const reabrir = async e => {
+      e.preventDefault(); e.stopImmediatePropagation();
+      try {
+        await api('/api/login', { method: 'POST', body: JSON.stringify({ usuario: $('#usuario').value, senha: $('#senha').value }) });
+        $('#login').hidden = true; f.removeEventListener('submit', reabrir, true); salvar();
+      } catch (err) { $('#erro-login').textContent = err.message; }
+    };
+    f.addEventListener('submit', reabrir, true);
+  }
+  $('#btn-descartar').addEventListener('click', () => {
+    if (!confirm('Descartar todas as alterações não salvas?')) return;
+    dados = JSON.parse(salvo); desenharAbas(); desenharSecao(); marcarAlteracao();
+  });
+  addEventListener('beforeunload', e => { if (sujo()) { e.preventDefault(); e.returnValue = ''; } });
+  addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); if (sujo()) salvar(); }
+  });
+
+  // ---------- PDF ----------
+  $('#btn-pdf').addEventListener('click', async () => {
+    const modal = $('#modal-pdf'), txt = $('#pdf-texto'), barra = $('#pdf-barra');
+    modal.hidden = false; barra.style.width = '5%'; txt.textContent = 'Preparando as folhas do cardápio';
+    const quadro = el('iframe', { id: 'quadro-pdf', src: '/?modo=pdf', 'aria-hidden': 'true', tabindex: '-1' });
+    document.body.append(quadro);
+    try {
+      await new Promise((ok, erro) => { quadro.onload = ok; quadro.onerror = erro; setTimeout(() => erro(new Error('Tempo esgotado')), 20000); });
+      const w = quadro.contentWindow;
+      for (let i = 0; !w.CardapioPronto && i < 100; i++) await new Promise(r => setTimeout(r, 50));
+      w.Cardapio.render(limpar(dados));
+      await w.Cardapio.esperarRecursos();
+      const longas = w.Cardapio.alturasEmA4().filter(a => a.proporcao > a.a4 * 1.06)
+        .map(a => dados.secoes.find(s => s.id === a.id)?.nome);
+      const { blob, nome } = await w.Cardapio.gerarPDF({
+        aoProgredir: (i, n) => { barra.style.width = (10 + 85 * i / n) + '%'; txt.textContent = i < n ? `Folha ${i + 1} de ${n}` : 'Finalizando'; },
+      });
+      barra.style.width = '100%';
+      const url = URL.createObjectURL(blob);
+      const a = el('a', { href: url, download: nome }); document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      let msg = 'PDF baixado' + (sujo() ? ' (inclui alterações ainda não salvas)' : '') + '.';
+      if (longas.length) msg += ` ${longas.join(', ')} passou do tamanho de uma folha A4 e foi reduzida para caber.`;
+      toast(msg);
+    } catch (e) {
+      console.error(e);
+      toast('Não foi possível gerar o PDF: ' + (e.message || e), true);
+    } finally {
+      modal.hidden = true; quadro.remove();
+    }
+  });
+
+  iniciar();
+})();
+</script>
+</body>
+</html>

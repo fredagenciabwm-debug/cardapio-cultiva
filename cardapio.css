@@ -1,0 +1,101 @@
+/* Fontes hospedadas no próprio site (necessário para o PDF sair com a tipografia certa) */
+@font-face{font-family:"MilhoCozido";src:url(/fonts/milho-cozido.woff2) format("woff2");font-display:block}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/montserrat-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/montserrat-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Montserrat";font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/montserrat-latin-400-italic.woff2) format("woff2")}
+/* Layout: cada página do PDF vira uma "folha" empilhada sobre o roxo da marca; medidas em pontos do A4 (595pt) */
+:root{
+  --roxo:#472536;      /* faixa do topo e fundo */
+  --tinta:#472835;     /* texto */
+  --papel:#F6F0E3;     /* folha */
+  --creme:#F5F0E1;     /* título no topo */
+  --mel:#F8D198;       /* caixa de preço */
+  --laranja:#EFA73F;   /* traço divisor */
+  --display:"MilhoCozido","Montserrat",system-ui,sans-serif;
+  --texto:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(56px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--roxo);color:var(--tinta);font-family:var(--texto)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--roxo)}
+img{display:block;width:100%;height:auto;max-width:100%}
+
+/* navegação */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--roxo);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;
+  border-bottom:1px solid color-mix(in srgb,var(--creme) 14%,transparent)}
+.nav ul{list-style:none;margin:0 auto;padding:0;max-width:860px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px}
+.nav a{display:block;font-family:var(--display);color:var(--creme);text-decoration:none;font-size:17px;letter-spacing:.04em;padding:6px 12px;border:1.5px solid transparent;border-radius:2px}
+.nav a:hover,.nav a:focus-visible{border-color:var(--laranja);outline:none}
+.nav a[aria-current="true"]{background:var(--laranja);color:var(--roxo)}
+
+.folhas{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:22px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:22px 40px}
+
+/* folha */
+.pagina{position:relative;background:var(--papel);container-type:inline-size;overflow:hidden;box-shadow:0 10px 30px rgb(0 0 0 / .28)}
+.pagina{--u:clamp(1.32px, calc(100cqw / 595), 1.445px);--ft:min(calc(24 * var(--u)), 7.4cqw);--fl:min(calc(14 * var(--u)), 3.95cqw);--fp:min(calc(12.5 * var(--u)), 3.7cqw)}
+.topo{position:relative;margin:0}
+.topo h2{position:absolute;margin:0;font-family:var(--display);font-weight:normal;color:var(--creme);white-space:nowrap;
+  left:calc(var(--x) / 593.3 * 100%);top:calc(var(--y) / var(--h) * 100%);
+  font-size:calc(var(--s) / 593.3 * 100cqw);line-height:1.27}
+.topo h2 span{display:block}
+
+.conteudo{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding-inline:calc(16 * var(--u))}
+.item{display:flex;flex-direction:column;align-items:center;width:100%}
+.item h3,.sub{margin:0;font-family:var(--display);font-weight:normal;font-size:var(--ft);line-height:1.25;text-wrap:balance}
+.desc{margin:0;font-weight:500;font-size:calc(10 * var(--u));line-height:calc(12 * var(--u));max-width:calc(505 * var(--u));text-wrap:pretty}
+.taps .desc{font-size:calc(9 * var(--u));line-height:calc(11 * var(--u))}
+.opc{margin:calc(5 * var(--u)) 0 0;font-family:var(--display);font-size:calc(13 * var(--u));line-height:calc(16 * var(--u));text-wrap:balance}
+.preco{display:inline-block;background:var(--mel);font-weight:600;font-size:calc(13 * var(--u));line-height:calc(15 * var(--u));padding:calc(2 * var(--u)) calc(7 * var(--u));font-variant-numeric:tabular-nums}
+.item>.preco{margin-top:calc(8 * var(--u))}
+.taps .preco{font-size:calc(12 * var(--u))}
+.tamanhos{display:flex;justify-content:center;gap:calc(52 * var(--u));margin-top:calc(9 * var(--u))}
+.tamanhos div{display:flex;flex-direction:column;align-items:center}
+.tamanhos span{font-family:var(--display);font-size:calc(13 * var(--u));line-height:calc(16 * var(--u))}
+.traco{font-family:var(--display);color:var(--laranja);font-size:calc(15 * var(--u));line-height:calc(19 * var(--u));margin:calc(4 * var(--u)) 0 0;white-space:nowrap;overflow:hidden;max-width:100%;user-select:none}
+.taps .item+.item{margin-top:calc(1 * var(--u))}
+.taps .item:first-child{margin-top:calc(5 * var(--u))}
+
+/* listas com pontilhado */
+.lista{display:grid;grid-template-columns:minmax(0,1fr) auto;width:100%;margin:calc(6 * var(--u)) 0 0;text-align:left;padding-left:0}
+@container (min-width: 786px){.lista{padding-left:calc(21 * var(--u))}}
+.lista dt,.lista dd{margin:0;line-height:calc(17.7 * var(--u))}
+.lista dt{position:relative;overflow:hidden;font-family:var(--display);font-size:var(--fl);min-width:0;padding-right:calc(2 * var(--u))}
+.lista dt span{position:relative;z-index:1;background:var(--papel);padding-right:calc(2 * var(--u))}
+.lista dt::after{content:"........................................................................................................................................................................................................";position:absolute;left:0;bottom:0;white-space:nowrap;line-height:calc(17.7 * var(--u))}
+.lista dd{background:var(--mel);font-weight:600;font-size:var(--fp);padding-inline:calc(6 * var(--u)) calc(9 * var(--u));margin-left:calc(12 * var(--u));display:flex;align-items:flex-end;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lista dd.primeiro{padding-top:calc(2 * var(--u))}
+.lista dt.primeiro{padding-top:calc(2 * var(--u))}
+.lista dd.ultimo{padding-bottom:calc(4 * var(--u))}
+
+.nota{margin:calc(4 * var(--u)) 0 0;font-style:italic;font-weight:400;font-size:calc(8 * var(--u));line-height:calc(10 * var(--u));max-width:calc(500 * var(--u))}
+.adicionais{margin:calc(25 * var(--u)) 0 0;font-family:var(--display);font-weight:normal;font-size:calc(15 * var(--u))}
+
+.rodape{margin:0;margin-top:24px}
+.aviso{margin:calc(18 * var(--u)) 0 0;font-family:var(--display);font-size:calc(11 * var(--u));text-align:center;padding-inline:calc(16 * var(--u))}
+br.q{display:none}
+
+/* largura de folha cheia: proporções idênticas ao PDF */
+@container (min-width: 786px){
+  br.q{display:inline}
+  /* linhas equilibradas como no PDF original; nos chopes, mais estreito para não encostar no galo */
+  .desc,.nota{text-wrap:balance}
+  .taps .desc{max-width:calc(458 * var(--u))}
+  #porcoes .conteudo{margin-top:calc(-50 * var(--u))}
+  #bebidas .conteudo{margin-top:calc(-8 * var(--u))}
+  #pit .conteudo{margin-top:calc(3 * var(--u))}
+  #chopes .rodape{margin-top:calc(-286 * var(--u))}
+  #porcoes .rodape{margin-top:calc(4 * var(--u))}
+  #pit .rodape{margin-top:calc(-2 * var(--u))}
+  #bebidas .rodape{margin-top:calc(6 * var(--u))}
+  .aviso{position:absolute;z-index:2;margin:0;padding:0;left:calc(204 / 593.3 * 100cqw);bottom:calc(17 / 593.3 * 100cqw);font-size:calc(11 / 593.3 * 100cqw);white-space:nowrap}
+}
+
+/* carregando / erro */
+.estado{color:var(--creme);text-align:center;font-family:var(--display);font-size:20px;padding:60px 16px}
+/* modo PDF: largura fixa de folha cheia, sem navegação */
+.modo-pdf .nav{display:none}
+.modo-pdf .folhas{width:828px;max-width:none;padding:0;gap:0}
+.modo-pdf .pagina{box-shadow:none}

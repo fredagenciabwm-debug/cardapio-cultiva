@@ -5,23 +5,23 @@
   // Só o conteúdo (pratos, descrições, preços, avisos) é editável no painel.
   const LAYOUT = {
     chopes: {
-      topo: { src: '/img/p1-topo.webp', w: 1780, h: 270 }, h: 90,
+      topo: { src: '/img/p1-topo-v2.webp', w: 1780, h: 270 }, h: 90,
       titulo: { x: 232, y: 15, s: 26.7, linhas: ['chopes'] },
       rodape: { src: '/img/p1-rodape.webp', w: 1780, h: 1026, alt: '' },
       taps: true,
     },
     porcoes: {
-      topo: { src: '/img/p2-topo.webp', w: 1780, h: 495 }, h: 165,
+      topo: { src: '/img/p2-topo-v2.webp', w: 1780, h: 495 }, h: 165,
       titulo: { x: 234, y: 21, s: 26.7, linhas: ['PORÇÕES'] },
       rodape: { src: '/img/p2-rodape.webp', w: 1780, h: 474, alt: '' },
     },
     pit: {
-      topo: { src: '/img/p3-topo.webp', w: 1780, h: 270 }, h: 90,
+      topo: { src: '/img/p3-topo-v2.webp', w: 1780, h: 270 }, h: 90,
       titulo: { x: 216, y: 13, s: 21.18, linhas: ['PIT SMOKER', 'MAD MAX'] },
       rodape: { src: '/img/p3-rodape.webp', w: 1780, h: 636, alt: 'Mad Max Pit Smoker e Brasa & Tacho' },
     },
     bebidas: {
-      topo: { src: '/img/p4-topo.webp', w: 1780, h: 495 }, h: 165,
+      topo: { src: '/img/p4-topo-v2.webp', w: 1780, h: 495 }, h: 165,
       titulo: { x: 234, y: 21, s: 26.7, linhas: ['BEBIDAS'] },
       rodape: { src: '/img/p4-rodape.webp', w: 1780, h: 951, alt: 'Cultive os bons momentos!' },
     },
